@@ -19,6 +19,15 @@ export default function Sidebar({ handlePerson }) {
     }, [data]);
 
     useEffect(() => {
+        
+        
+        if(window.innerWidth<=850){
+            setVisible(true)
+        }
+        else{
+            setVisible(false)
+        }
+
         window.addEventListener('resize', () => {
             console.log(window.innerWidth);
             if(window.innerWidth<=850){
@@ -118,6 +127,10 @@ export default function Sidebar({ handlePerson }) {
     
         setCurrent(name);
         handlePerson(name);
+
+        if(window.innerWidth<=850){
+            document.querySelector('.sbar').classList.add('hide')
+        }
     }
     
 

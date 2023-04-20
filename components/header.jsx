@@ -6,6 +6,12 @@ export default function Header(props){
     let [visible,setVisible] = useState(false)
 
     useEffect(() => {
+        if(window.innerWidth<=850){
+            setVisible(true)
+        }
+        else{
+            setVisible(false)
+        }
         window.addEventListener('resize', () => {
             console.log(window.innerWidth);
             if(window.innerWidth<=850){

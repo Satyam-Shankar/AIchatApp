@@ -6,13 +6,24 @@ export default function Input(props) {
   const [ques, setQues] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const ref = useRef(null);
+  const [support,setSupport] = useState(true)
 
   useEffect(() => {
     setPerson(props.person)
   },[props.person])
 
+  useEffect(() => {
+    if(window.speechRecognition || window.webkitSpeechRecognition){
+      setSupport(true)
+    }
+    else{
+      setSupport(false)
+    }
+  },[])
+
   async function handleSubmit(e) {
     e.preventDefault();
+    handleSpeech()
     if (ques.trim() === "") {
       alert("Enter some message");
       return;
@@ -44,21 +55,49 @@ export default function Input(props) {
       setIsSubmitting(false);
     }
   }
+  function handleSpeech(){
+    
+    if(window.speechRecognition || window.webkitSpeechRecognition){
+      const SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.start()
+      recognition.onresult = (e) => {
+      let val = e.results[0][0].transcript;
+      ref.current.value = val;
+      setQues(val);
+      console.log(e.results[0][0].transcript);
+    }
+      recognition.onspeechend = () => {
+        recognition.stop();
+    };
+    } 
+   
+    
+    
+ 
+  }
 
   return (
     <div className="input-div">
       <form>
-        <input
+        <textarea
           onChange={(e) => setQues(e.target.value)}
           ref={ref}
           className="ques-input"
           placeholder="Send message....."
           disabled={isSubmitting}
+          onKeyDown={(e) => {
+            console.log(e);
+            if(e.code == 'Enter'){
+              handleSubmit(e)
+            }
+          }}
         />
         <button
           onClick={handleSubmit}
           className="btn btn-submit"
           disabled={isSubmitting}
+          
         >
           <span
             className="material-symbols-outlined"
@@ -67,7 +106,15 @@ export default function Input(props) {
             send
           </span>
         </button>
+        <div className="mic" onClick={handleSpeech} >
+        <span className="material-symbols-outlined btn" disabled={!support}>
+        mic
+        </span>
+        </div>
+       
       </form>
+      
+
     </div>
   );
 }
