@@ -23,7 +23,6 @@ export default function Input(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    handleSpeech()
     if (ques.trim() === "") {
       alert("Enter some message");
       return;
