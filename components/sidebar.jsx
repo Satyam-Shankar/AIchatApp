@@ -67,6 +67,7 @@ export default function Sidebar({ handlePerson }) {
                         />
                         <div className="button-wrapper">
                             <button onClick={(e) => {
+                                document.querySelector('.ques-input').focus()
                                 e.preventDefault()
                                 if (input.trim() != '') {
                                     setData(prev => {
@@ -100,6 +101,7 @@ export default function Sidebar({ handlePerson }) {
                             <button className="name-cancel" onClick={(e) => {
                                 e.preventDefault()
                                 setShow(false)
+                                document.querySelector('.ques-input').focus()
                             }}>Cancel</button>
                         </div>
                     </form>
