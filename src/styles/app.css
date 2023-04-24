@@ -106,7 +106,7 @@ html, body {
     width: 90%;
     display: grid;
     grid-template-rows: 100%;
-    grid-template-columns: 1fr 50px 50px;
+    grid-template-columns: 80% 10% 50px;
     margin: 0px 0px 10px 0px;
 }
 

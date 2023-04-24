@@ -1,150 +1,137 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getFirestore, collection, doc,getDoc,addDoc,setDoc } from "firebase/firestore";
+import info from "./data";
 
-export default function Sidebar({ handlePerson, db, conv, handleConv, info, fbase }) {
-  const [data, setData] = useState(info);
-  const [current, setCurrent] = useState();
-  const [show, setShow] = useState(false);
-  const [input, setInput] = useState("");
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    for (let item of data) {
-      if (item.selected === true) {
-        setCurrent(item.name);
-        break;
-      }
-    }
-  }, [data]);
-
-  useEffect(() => {
-    setData(info);
-  }, [info]);
-
-  useEffect(() => {
-    if (window.innerWidth <= 850) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-
-    const handleResize = () => {
-      if (window.innerWidth <= 850) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  function Modal() {
-    const ref = useRef(null);
+export default function Sidebar({ handlePerson }) {
+    let [data, setData] = useState(info)
+    let [current, setCurrent] = useState()
+    let [show, setShow] = useState(false)
+    let [input, setInput] = useState("")
+    let [visible,setVisible] = useState(false)
+   
 
     useEffect(() => {
-      ref.current.focus();
-    }, []);
-
-    return (
-      <div
-        className="main-modal"
-        onClick={(e) => {
-          if (e.target.classList.contains("main-modal")) {
-            setShow(false);
-          }
-        }}
-      >
-        <div className="modal">
-          <h2>Add Chat</h2>
-          <form>
-            <label htmlFor="name">
-              Enter the name of a famous historical personality
-            </label>
-            <input
-              placeholder="Enter a name"
-              name="name"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              ref={ref}
-            />
-            <div className="button-wrapper">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-
-                  if (input.trim() !== "") {
-                    setData((prev) => {
-                      const arr = prev.map((item) => {
-                        if (item.name === current) {
-                          item.selected = false;
-                        }
-                        return item;
-                      });
-
-                      arr.push({
-                        name: input,
-                        selected: true,
-                        conv: [],
-                      });
-
-                      fbase(arr);
-                      handlePerson(input);
-                      setCurrent(input);
-                      setShow(false);
-
-                      return arr;
-                    });
-                  }
-                }}
-                className="name-submit"
-              >
-                Submit
-              </button>
-              <button
-                className="name-cancel"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setShow(false);
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
-
-  function handleClick(e) {
-    const name = e.target.innerText;
-
-    setData((prev) => {
-      const arr = prev.map((item) => {
-        if (item.name === name) {
-          item.selected = true;
-        } else {
-          item.selected = false;
+        for (let item of data) {
+            if (item.selected === true) {
+                setCurrent(item.name);
+                break; // break out of the loop when the selected item is found
+            }
         }
-        return item;
-      });
+    }, [data]);
 
-      return arr;
-    });
+    useEffect(() => {
+        
+        
+        if(window.innerWidth<=850){
+            setVisible(true)
+        }
+        else{
+            setVisible(false)
+        }
 
-    setCurrent(name);
-    handlePerson(name);
+        window.addEventListener('resize', () => {
+            console.log(window.innerWidth);
+            if(window.innerWidth<=850){
+                setVisible(true)
+            }
+            else{
+                setVisible(false)
+            }
+        })
+    },[])
 
-    if (window.innerWidth <= 850) {
-      document.querySelector(".sbar").classList.add("hide");
+    function Modal(){
+
+        
+
+        let ref = useRef(null)
+        useEffect(() => {
+            ref.current.focus()
+        },[])
+
+        return (
+            <div className="main-modal" onClick={(e) => {
+                if(e.target.classList.contains('main-modal')){
+                    setShow(false)
+                }
+            }}>
+                <div className="modal">
+                    <h2>Add Chat</h2>
+                    <form>
+                        <label htmlFor="name">Enter a name of a famous historical personality</label>
+                        <input
+                            placeholder="Enter a name"
+                            name="name"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            ref={ref}
+                        />
+                        <div className="button-wrapper">
+                            <button onClick={(e) => {
+                                e.preventDefault()
+                                if (input.trim() != '') {
+                                    setData(prev => {
+                                        let arr = []
+                                        for (let item of prev) {
+                                            if (item.name == e.target.innerText) {
+                                                item.selected = true;
+                                            }
+                                            else {
+                                                item.selected = false;
+                                            }
+                                            arr.push(item)
+                                        }
+                                        setInput("")
+                                        setShow(false)
+                                        handlePerson(input)
+                                        arr = [...arr,
+                                            {
+                                                name: input,
+                                                selected: true,
+                                                conv: [
+                                                    {
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                        return arr
+                                    })
+                                }
+                            }} className="name-submit">Submit</button>
+                            <button className="name-cancel" onClick={(e) => {
+                                e.preventDefault()
+                                setShow(false)
+                            }}>Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )
     }
-  }
 
+    function handleClick(e) {
+        const name = e.target.innerText;
+        console.log(name)
+        setData(prev => {
+            let arr = []
+            for (let item of prev) {
+                if (item.name === name) {
+                    item.selected = true;
+                }
+                else {
+                    item.selected = false;
+                }
+                arr.push(item)
+            }
+            return arr;
+        })
+    
+        setCurrent(name);
+        handlePerson(name);
+
+        if(window.innerWidth<=850){
+            document.querySelector('.sbar').classList.add('hide')
+        }
+    }
     
 
     function handleDelete(name) {
@@ -155,7 +142,6 @@ export default function Sidebar({ handlePerson, db, conv, handleConv, info, fbas
             handlePerson(filteredData[0].name)
             filteredData[0].selected = true
         }
-        fbase(filteredData)
         return filteredData;
     });
 

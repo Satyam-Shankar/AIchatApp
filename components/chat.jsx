@@ -1,53 +1,35 @@
-import React,{ useState, useEffect, use } from "react";
+import React,{ useState, useEffect } from "react";
 import Header from "./header";
 import Conversation from "./conversation";
 import Input from "./input";
-import data from './data'
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc,getDoc,addDoc,setDoc } from "firebase/firestore";
 
 export default function Chat(props){
 
-  
   const [person,setPerson] = useState(props.person)
-  const [email,setEmail] = useState('satyamshankar13y@gmail.com')
-
+  console.log(person);
+  const [conv,setConv] = useState([])
   const [opacity,setOpacity] = useState(1)
   
-  const [data,setData] = useState({
+  function handleConv(conv){
+    setConv(
+      prev => {
+        let history = prev[person] || []
+        console.log(history);
 
-  })
-
-
-
-  
-  useEffect(() => {
-    setData(prev => {
-      let obj = {};
-      console.log(props.data);
-      let arr = props.data;
-
-      for(let item of arr){
-        obj = {
-          ...obj,
-          [item.name]:item.conv
+        return {
+          ...prev,
+          [person]:[...history,conv]
         }
       }
-
-      return obj
-    })
-  },[props.data])
+    )
+    }
   
 
-  console.log(data);
-
-
+  console.log(conv);
 
   useEffect(() => {
     setPerson(props.person)
   }, [props.person])
-
-  
 
   function handleScroll()
   {
@@ -58,9 +40,9 @@ export default function Chat(props){
 
   return (
     <div className="main">
-      <Header person={person} opacity={opacity}  db={props.db}/>
-      <Conversation person={person} conv={data} handleScroll = {handleScroll} db={props.db}/>
-      <Input person = {person} handleConv = {props.handleConv} conv={props.conv} db={props.db}/>
+      <Header person={person} opacity={opacity}/>
+      <Conversation person={person} conv={conv} handleScroll = {handleScroll}/>
+      <Input person = {person} handleConv = {handleConv} conv={conv}/>
     </div>
   )
 }
