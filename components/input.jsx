@@ -43,7 +43,7 @@ export default function Input(props) {
       });
 
       const data = await res.json();
-      console.log(data);
+   
       const response = data.data.choices[0].message.content;
       props.handleConv(response);
       setQues("");
@@ -64,7 +64,6 @@ export default function Input(props) {
       let val = e.results[0][0].transcript;
       ref.current.value = val;
       setQues(val);
-      console.log(e.results[0][0].transcript);
     }
       recognition.onspeechend = () => {
         recognition.stop();
@@ -86,7 +85,7 @@ export default function Input(props) {
           placeholder="Send message....."
           disabled={isSubmitting}
           onKeyDown={(e) => {
-            console.log(e);
+  
             if(e.code == 'Enter'){
               handleSubmit(e)
             }
