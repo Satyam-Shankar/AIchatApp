@@ -6,14 +6,23 @@ export default function Input(props) {
   const [ques, setQues] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const ref = useRef(null);
+  const [support,setSupport] = useState(true)
 
   useEffect(() => {
     setPerson(props.person)
   },[props.person])
 
+  useEffect(() => {
+    if(window.speechRecognition || window.webkitSpeechRecognition){
+      setSupport(true)
+    }
+    else{
+      setSupport(false)
+    }
+  },[])
+
   async function handleSubmit(e) {
     e.preventDefault();
-    handleSpeech()
     if (ques.trim() === "") {
       alert("Enter some message");
       return;
@@ -34,7 +43,7 @@ export default function Input(props) {
       });
 
       const data = await res.json();
-      console.log(data);
+   
       const response = data.data.choices[0].message.content;
       props.handleConv(response);
       setQues("");
@@ -46,21 +55,23 @@ export default function Input(props) {
     }
   }
   function handleSpeech(){
-    const SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
     
-  const SpeechRecognitionEvent =
-  window.SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
-  const recognition = new SpeechRecognition();
-  recognition.start()
-  recognition.onresult = (e) => {
-    let val = e.results[0][0].transcript;
-    ref.current.value = val;
-    setQues(val);
-    console.log(e.results[0][0].transcript);
-  }
-  recognition.onspeechend = () => {
-    recognition.stop();
-  };
+    if(window.speechRecognition || window.webkitSpeechRecognition){
+      const SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.start()
+      recognition.onresult = (e) => {
+      let val = e.results[0][0].transcript;
+      ref.current.value = val;
+      setQues(val);
+    }
+      recognition.onspeechend = () => {
+        recognition.stop();
+    };
+    } 
+   
+    
+    
  
   }
 
@@ -74,7 +85,7 @@ export default function Input(props) {
           placeholder="Send message....."
           disabled={isSubmitting}
           onKeyDown={(e) => {
-            console.log(e);
+  
             if(e.code == 'Enter'){
               handleSubmit(e)
             }
@@ -93,8 +104,8 @@ export default function Input(props) {
             send
           </span>
         </button>
-        <div className="mic" onClick={handleSpeech}>
-        <span className="material-symbols-outlined btn">
+        <div className="mic" onClick={handleSpeech} >
+        <span className="material-symbols-outlined btn" disabled={!support}>
         mic
         </span>
         </div>
