@@ -18,13 +18,17 @@ export default function Chat(props){
 
   })
 
+  const [error,setError] = useState(false)
 
 
+  function handleError(val){
+    props.error(person)
+  }
   
   useEffect(() => {
     setData(prev => {
       let obj = {};
-      console.log(props.data);
+
       let arr = props.data;
 
       for(let item of arr){
@@ -38,8 +42,8 @@ export default function Chat(props){
     })
   },[props.data])
   
+  
 
-  console.log(data);
 
 
 
@@ -59,8 +63,8 @@ export default function Chat(props){
   return (
     <div className="main">
       <Header person={person} opacity={opacity}  db={props.db}/>
-      <Conversation person={person} conv={data} handleScroll = {handleScroll} db={props.db}/>
-      <Input person = {person} handleConv = {props.handleConv} conv={props.conv} db={props.db}/>
+    <Conversation person={person} conv={data} handleScroll = {handleScroll} db={props.db} handleError={handleError} error={error}/>
+      <Input person = {person} handleConv = {props.handleConv} conv={props.conv} db={props.db} error={props.error} handleError={handleError}/>
     </div>
   )
 }

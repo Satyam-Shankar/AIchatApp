@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getFirestore, collection, doc,getDoc,addDoc,setDoc } from "firebase/firestore";
+import { getFirestore, collection, doc,getDoc,addDoc,setDoc, updateDoc } from "firebase/firestore";
 
-export default function Sidebar({ handlePerson, db, conv, handleConv, info, fbase }) {
+export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbase }) {
   const [data, setData] = useState(info);
   const [current, setCurrent] = useState();
   const [show, setShow] = useState(false);
@@ -76,6 +76,8 @@ export default function Sidebar({ handlePerson, db, conv, handleConv, info, fbas
               <button
                 onClick={(e) => {
                   e.preventDefault();
+         
+
 
                   if (input.trim() !== "") {
                     setData((prev) => {
@@ -84,15 +86,15 @@ export default function Sidebar({ handlePerson, db, conv, handleConv, info, fbas
                           item.selected = false;
                         }
                         return item;
-                      });
+                      }); 
 
                       arr.push({
                         name: input,
                         selected: true,
                         conv: [],
                       });
-
                       fbase(arr);
+                      updateConv(arr)
                       handlePerson(input);
                       setCurrent(input);
                       setShow(false);
@@ -145,7 +147,18 @@ export default function Sidebar({ handlePerson, db, conv, handleConv, info, fbas
     }
   }
 
-    
+    useEffect(() => {
+      console.log(data.length);
+
+      if(data.length === 0){
+        handlePerson('')
+        document.querySelector('.ques-input').disabled = true
+      }
+      else {
+        document.querySelector('.ques-input').disabled = false
+
+      }
+    },[data])
 
     function handleDelete(name) {
     setData(prev => {
@@ -156,6 +169,8 @@ export default function Sidebar({ handlePerson, db, conv, handleConv, info, fbas
             filteredData[0].selected = true
         }
         fbase(filteredData)
+
+        
         return filteredData;
     });
 

@@ -8,8 +8,8 @@ import { getFirestore, collection, doc,getDoc,addDoc,setDoc } from "firebase/fir
 
 function App() {
   const [data,setData] = useState([])
-  const [person,setPerson] = useState("Mahatma Gandhi")
-  const [email,setEmail] = useState('satyamshankar13y@gmail.com')
+  const [person,setPerson] = useState("")
+  const [email,setEmail] = useState('satyamshan bkar13@gmail.com')
   function handlePerson(person){
     setPerson(person)
   }
@@ -27,7 +27,7 @@ function App() {
 
   const db = getFirestore(app);
   const [conv,setConv] = useState({})
-     console.log(conv);
+
      
      useEffect(() => {
         async function read(){
@@ -50,42 +50,52 @@ function App() {
       });
     }
 
-    console.log(data);
+
 function handleConv(conv){
 
  
   setData(prev => {
+ 
     let i =  prev.map(item => {
+  
       if (item.name === person) {
-        // Do something
         item.conv.push(conv);
       }
+   
       return item
       
     });
+
+   
+    
     fbase(i)
     return i
 
   });
-  
-
-
- 
-  setConv(
-    prev => {
-   
-
-      let history = prev[person] || []
-      
-      return {
-        ...prev,
-        [person]:[...history,conv]
-      }
-    }
-  )
+  }
+  function updateConv(conv){
+    setData(conv)
   }
 
+  function error(person)
+  {
+        let bool = true
+        setData(prev => {
+          const arr = prev.map(item => {
+            if(item.name === person){
+              if(bool === true){
+                console.log(4432);
+                item.conv.pop()
+                bool = false
+              }
+                
+            }
+            return item
+          })
 
+          return arr
+        })
+  }
 
   return (
     <>
@@ -97,8 +107,8 @@ function handleConv(conv){
     </Head>
   <div className="app">
 
-    <Sidebar handlePerson={handlePerson} db={db} conv={conv} handleConv={handleConv} info={data} fbase={fbase}/>
-    <Chat person={person} db={db} conv={conv} handleConv={handleConv} setconv={setConv} data={data}/>
+    <Sidebar handlePerson={handlePerson} db={db} conv={conv} updateConv={updateConv} info={data} fbase={fbase}/>
+    <Chat person={person} db={db} conv={conv} handleConv={handleConv} setconv={setConv} data={data} error={error}/>
     </div>
 
    

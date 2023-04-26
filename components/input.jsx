@@ -47,9 +47,11 @@ export default function Input(props) {
       const response = data.data.choices[0].message.content;
       props.handleConv(response);
       setQues("");
+
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       alert("Failed to send message");
+      props.handleError(true)
     } finally {
       setIsSubmitting(false);
     }
@@ -74,6 +76,15 @@ export default function Input(props) {
     
  
   }
+
+  useEffect(() => {
+    if(person == ''){
+      ref.current.disabled = true
+    }
+    else{
+      ref.current.disabled = false
+    }
+  },[person])
 
   return (
     <div className="input-div">

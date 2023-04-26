@@ -7,32 +7,40 @@ export default function Conversation(props){
     const [conv, setConv] = useState(props.conv[props.person] || []);
     const [isTyping, setIsTyping] = useState(false);
     const convRef = useRef(null);
-
+    const [error,setError] = useState(false)
     
 
      
-           
+    useEffect(() => {
+        if(props.error == true){
+            props.handleError(false)
+            setError(true)
+        }
+        else{
+            setError(false)
+        }
+    },[props.error])
         
         
 
     
     useEffect(() => {
         setConv(props.conv[props.person] || []);
-      
     }, [props.conv, props.person]);
 
     useEffect(() => {
+        console.log(4);
         if (convRef.current) {
             const convElement = convRef.current;
             const lastResponse = convElement.querySelector(".talk:last-child");
-         
+            
             if(lastResponse && lastResponse.classList.contains('blinking-cursor')){
                 setIsTyping(false)
             }
             else if (lastResponse && lastResponse.classList.contains('question')) {
                 setIsTyping(true);
               
-            } else if ( lastResponse) {
+            } else {
                 setIsTyping(false);
 
 
@@ -41,7 +49,7 @@ export default function Conversation(props){
 
        
 
-    }, [conv]);
+    }, [props.conv]);
 
     const obj = conv.map((item, index) => {
         return (
