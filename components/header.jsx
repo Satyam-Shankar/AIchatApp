@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import styles from '../src/styles/Home.module.css'
+
 
 export default function Header(props){
 
@@ -39,11 +41,10 @@ export default function Header(props){
         
         
     return (
-        <div className={`header`} style={{opacity: opacity}}>
+        <div className={`${styles.header}`} style={{opacity: opacity}}>
             <div>
                {visible && menu}
-            <h4 className="name">{props.person}</h4>
-           {/* <p className="last-seen">last seen 30th January 1948</p> */}
+            <h4 className={`${styles.name}`}>{props.person}</h4>
             </div>
         </div>
     )

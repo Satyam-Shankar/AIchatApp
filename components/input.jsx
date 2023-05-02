@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import styles from '../src/styles/Home.module.css'
 
 
 export default function Input(props) {
@@ -31,6 +32,7 @@ export default function Input(props) {
     setIsSubmitting(true);
     let val = ref.current.value;
     ref.current.value = ""
+    // ref.current.disabled = true
 
     try {
       const res = await fetch('/api/generate', {
@@ -47,10 +49,13 @@ export default function Input(props) {
       const response = data.data.choices[0].message.content;
       props.handleConv(response);
       setQues("");
+      ref.current.disabled = false
+      console.log(ref.current);
 
     } catch (error) {
       // console.error(error);
       alert("Failed to send message");
+      console.log(error);
       props.handleError(true)
     } finally {
       setIsSubmitting(false);
@@ -92,7 +97,7 @@ export default function Input(props) {
         <textarea
           onChange={(e) => setQues(e.target.value)}
           ref={ref}
-          className="ques-input"
+          className={`ques_input`}
           placeholder="Send message....."
           disabled={isSubmitting}
           onKeyDown={(e) => {
@@ -104,7 +109,7 @@ export default function Input(props) {
         />
         <button
           onClick={handleSubmit}
-          className="btn btn-submit"
+          className={`${styles.btn} ${styles.btn_submit}`}
           disabled={isSubmitting}
           
         >
@@ -116,7 +121,7 @@ export default function Input(props) {
           </span>
         </button>
         <div className="mic" onClick={handleSpeech} >
-        <span className="material-symbols-outlined btn" disabled={!support}>
+        <span className={`material-symbols-outlined ${styles.btn}`} disabled={!support}>
         mic
         </span>
         </div>

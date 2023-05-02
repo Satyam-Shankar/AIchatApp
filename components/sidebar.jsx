@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getFirestore, collection, doc,getDoc,addDoc,setDoc, updateDoc } from "firebase/firestore";
+import styles from '../src/styles/Home.module.css'
+import {useAuth} from "../contexts/AuthContext";
 
 export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbase }) {
   const [data, setData] = useState(info);
@@ -7,17 +9,19 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
   const [visible, setVisible] = useState(false);
+  const {logout} = useAuth()
 
-  useEffect(() => {
+    useEffect(() => {
     for (let item of data) {
       if (item.selected === true) {
         setCurrent(item.name);
         break;
       }
     }
-  }, [data]);
+  }, [data]); 
 
   useEffect(() => {
+    console.log(info);
     setData(info);
   }, [info]);
 
@@ -52,14 +56,14 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
 
     return (
       <div
-        className="main-modal"
+        className={`main_modal`}
         onClick={(e) => {
           if (e.target.classList.contains("main-modal")) {
             setShow(false);
           }
         }}
       >
-        <div className="modal">
+        <div className={`${styles.modal}`}>
           <h2>Add Chat</h2>
           <form>
             <label htmlFor="name">
@@ -72,7 +76,7 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
               onChange={(e) => setInput(e.target.value)}
               ref={ref}
             />
-            <div className="button-wrapper">
+            <div className={`${styles.button_wrapper}`}>
               <button
                 onClick={(e) => {
                   e.preventDefault();
@@ -103,12 +107,12 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
                     });
                   }
                 }}
-                className="name-submit"
+                className={`${styles.name_submit}`}
               >
                 Submit
               </button>
               <button
-                className="name-cancel"
+                className={`${styles.name_cancel}`}
                 onClick={(e) => {
                   e.preventDefault();
                   setShow(false);
@@ -152,10 +156,10 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
 
       if(data.length === 0){
         handlePerson('')
-        document.querySelector('.ques-input').disabled = true
+        document.querySelector('.ques_input').disabled = true
       }
       else {
-        document.querySelector('.ques-input').disabled = false
+        document.querySelector('.ques_input').disabled = false
 
       }
     },[data])
@@ -181,32 +185,36 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
 }
 
     const ele = data.map(item => (
-        <div className="name-item-div" key={item.name}>
-            <li className={`name-item ${item.selected ? 'current' : ''}`} onClick={handleClick}><span className="text">{item.name}</span></li>
+        <div className={`${styles.name_item_div}`} key={item.name}>
+            <li className={`${styles.name_item} ${item.selected ? styles.current : ''}`} onClick={handleClick}><span className={`${styles.text}`}>{item.name}</span></li>
             {current == item.name && <span className="material-symbols-outlined delete" onClick={() => handleDelete(item.name)}>delete</span>}
         </div>
     ))
 
     return (
-        <div className="sbar">
-            <ul className="nameL">
-                <button className="btn add-chat" onClick={(e) => {
+        <div className={`sbar`}>
+            <ul className={`${styles.nameL}`}>
+                <button className={`${styles.btn} ${styles.add_chat}`} onClick={(e) => {
                     e.preventDefault()
                     setInput("")
                     setShow(prev => !prev)
                 }}>
-                    <span className="plus">+</span><span> Add Chat</span>
+                    <span className={`${styles.plus}`}>+</span><span> Add Chat</span>
                 </button>
 
                 {ele}
 
 
-                 { visible &&  <span className="material-symbols-outlined close" onClick={() => {
+                 { visible &&  <span className={`material-symbols-outlined ${styles.close}`} onClick={() => {
                     document.querySelector('.sbar').classList.add('hide')
 
                 }}>
                         close
                 </span>}
+
+                <button className={`btn ${styles.logout}`} onClick={logout}>
+                    Logout
+                </button>
                 {show &&  <Modal />}
             </ul>
         </div>

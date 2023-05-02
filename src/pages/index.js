@@ -2,29 +2,25 @@ import { useRef, useState,useEffect } from "react";
 import Head from "next/head";
 import Chat from "../../components/chat";
 import Sidebar from "../../components/sidebar";
-import { initializeApp } from "firebase/app";
 import info from '../../components/data'
+import { useAuth } from "../../contexts/AuthContext";
 import { getFirestore, collection, doc,getDoc,addDoc,setDoc } from "firebase/firestore";
+import {useRouter} from "next/router";
+import app from '../../components/firebase'
 
 function App() {
-  const [data,setData] = useState([])
-  const [person,setPerson] = useState("")
-  const [email,setEmail] = useState('satyamshan bkar13@gmail.com')
-  function handlePerson(person){
     setPerson(person)
   }
+  const {user,loading} = useAuth()
+const router = useRouter()
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDDDgG4yDPu8c3mrMMHY2ZyPQJDYs-SeO4",
-    authDomain: "thetime-capsule.firebaseapp.com",
-    projectId: "thetime-capsule",
-    storageBucket: "thetime-capsule.appspot.com",
-    messagingSenderId: "300164687581",
-    appId: "1:300164687581:web:fabc0e4742533b8a921d34"
-     };
-  const app = initializeApp(firebaseConfig);
+  const [data,setData] = useState([])
+  const [person,setPerson] = useState("")
+  const [email,setEmail] = useState(user?.email || ' ')
+  function handlePerson(person){
+  
 
-
+  
   const db = getFirestore(app);
   const [conv,setConv] = useState({})
 
@@ -44,6 +40,9 @@ function App() {
 
         read()
      },[])
+
+
+
     async function fbase(obj){
       await setDoc(doc(db, "users",email), {
         data:obj
@@ -77,6 +76,10 @@ function handleConv(conv){
     setData(conv)
   }
 
+  useEffect(() => {
+    console.log(data);
+  },[data])
+
   function error(person)
   {
         let bool = true
@@ -85,7 +88,7 @@ function handleConv(conv){
             if(item.name === person){
               if(bool === true){
                 console.log(4432);
-                item.conv.pop()
+                item.conv.length-=1
                 bool = false
               }
                 

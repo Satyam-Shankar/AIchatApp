@@ -2,9 +2,6 @@ import React,{ useState, useEffect, use } from "react";
 import Header from "./header";
 import Conversation from "./conversation";
 import Input from "./input";
-import data from './data'
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc,getDoc,addDoc,setDoc } from "firebase/firestore";
 
 export default function Chat(props){
 

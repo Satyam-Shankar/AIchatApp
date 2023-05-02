@@ -38,7 +38,9 @@ html, body {
 
 .sbar{
     height: 100vh;
+    position: relative;
 }
+
 
 
 .nameL{
@@ -48,7 +50,7 @@ html, body {
     background-color: rgb(7,7,15);
 }
 
-.name-item{
+.name_item{
     width: 100%;
     /* height: 50px; */
     display: flex;
@@ -67,7 +69,7 @@ html, body {
     
 }
 
-.name-item .text{
+.text{
   /* background-color: red; */
   overflow:hidden;
   text-overflow: ellipsis;
@@ -110,7 +112,7 @@ html, body {
     margin: 0px 0px 10px 0px;
 }
 
-.ques-input{
+.ques_input{
     height: 45px;
     background-color: #333333;
     color: white;
@@ -219,7 +221,7 @@ html, body {
 }
 
 
-.main-modal{
+.main_modal{
     position: absolute;
     top: 0;
     bottom: 0;
@@ -273,7 +275,7 @@ html, body {
     color: #f2f2f7;
   }
   
-  .modal .name-submit {
+   .name-submit {
     background-color: #4b4b4d;
     color: #f2f2f7;
     padding: 10px 20px;
@@ -284,7 +286,7 @@ html, body {
     transition: background-color 0.3s ease;
   }
   
-  .modal .name-submit:hover {
+  .name-submit:hover {
     /* background-color: #5c5c5e; */
     background-color: #2a892a;
   }
@@ -456,4 +458,16 @@ html, body {
   place-content: center;
   height: 45px;
   margin-left: 10px;
+}
+
+.logout{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    background: #1a95d0;
+    color: #e9dbdb
 }
