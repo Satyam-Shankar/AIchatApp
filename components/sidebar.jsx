@@ -192,7 +192,8 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
     ))
 
     return (
-        <div className={styles.sbar} ref={sref}>
+      <div className={`${styles.sbar} sbar`} ref={sref}>
+
             <ul className={`${styles.nameL}`}>
                 <button className={`${styles.btn} ${styles.add_chat}`} onClick={(e) => {
                     e.preventDefault()
