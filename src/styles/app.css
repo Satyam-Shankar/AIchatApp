@@ -9,10 +9,10 @@
 
 html, body {
     height: 100vh;
-   
+    /*background: #000;*/
 
 }
- 
+
 ::selection{
     background-color: #307371;
 }
@@ -36,10 +36,6 @@ html, body {
 
 }
 
-.sbar{
-    height: 100vh;
-    position: relative;
-}
 
 
 
@@ -66,23 +62,23 @@ html, body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    
+
 }
 
 .text{
-  /* background-color: red; */
-  overflow:hidden;
-  text-overflow: ellipsis;
-  height: 100%;
-  width: 95%;
-  white-space:nowrap;
+    /* background-color: red; */
+    overflow:hidden;
+    text-overflow: ellipsis;
+    height: 100%;
+    width: 95%;
+    white-space:nowrap;
 }
 
 
 
 .name-item:hover{
     background-color: rgba(255,255,255,0.1);
-    
+
 }
 
 .header{
@@ -129,7 +125,7 @@ html, body {
 
 .btn {
     cursor: pointer;
-    
+
     border: 0;
 }
 
@@ -140,7 +136,7 @@ html, body {
     place-content: center;
     border-radius: 0px 5px 5px 0px;
     max-width: 80px;
-    
+
 }
 
 .conv{
@@ -149,10 +145,10 @@ html, body {
 }
 
 .sbar{
-  overflow-y: auto;
+    overflow-y: auto;
 }
 .sbar::-webkit-scrollbar{
-  width: 10px;
+    width: 10px;
 }
 *:focus {
     outline: none;
@@ -175,12 +171,13 @@ html, body {
     background-color: violet;
 }
 
-  
+
 
 
 .talk{
     padding: 10px 10px;
     font-size: 18px;
+    margin: 0;
 }
 
 ::-webkit-scrollbar{
@@ -252,20 +249,20 @@ html, body {
     width: 400px;
     margin: 0 auto;
     transition: all 2s ease-in;
-  }
-  
-  .modal h2 {
+}
+
+.modal h2 {
     font-size: 24px;
     margin-bottom: 20px;
-  }
-  
-  .modal label {
+}
+
+.modal label {
     display: block;
     font-size: 16px;
     margin-bottom: 10px;
-  }
-  
-  .modal input {
+}
+
+.modal input {
     padding: 10px;
     border-radius: 5px;
     border: none;
@@ -273,9 +270,9 @@ html, body {
     width: 100%;
     background-color: #2c2c2e;
     color: #f2f2f7;
-  }
-  
-   .name-submit {
+}
+
+.name-submit {
     background-color: #4b4b4d;
     color: #f2f2f7;
     padding: 10px 20px;
@@ -284,21 +281,21 @@ html, body {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-  }
-  
-  .name-submit:hover {
+}
+
+.name-submit:hover {
     /* background-color: #5c5c5e; */
     background-color: #2a892a;
-  }
-  
-  .button-wrapper{
+}
+
+.button-wrapper{
     margin: 20px 0;
     display: flex;
     justify-content: center;
     gap: 20px;
-  }
+}
 
-  .name-cancel{
+.name-cancel{
     background-color: #4b4b4d;
     color: #f2f2f7;
     padding: 10px 20px;
@@ -307,48 +304,48 @@ html, body {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-  }
+}
 
-  .name-cancel:hover{
+.name-cancel:hover{
     background-color: red;
-  }
+}
 
-  
-  .show{
+
+.show{
     display: block;
-  }
+}
 
-  .hide{
+.hide{
     display: none;
-  }
-  
-  
+}
 
-  
-  .delete{
+
+
+
+.delete{
     color: white;
     cursor: pointer;
     position: absolute;
     right: 5%;
     font-size: 16px;
-    
 
-    
-    
-  }
 
-  .delete:hover{
+
+
+}
+
+.delete:hover{
     color: red;
-  }
+}
 
-  .name-item-div{
+.name-item-div{
     display: flex;
     align-items: center;
     background-color: rgb(7, 7, 15);
     position: relative;
-  }
+}
 
-  .blinking-cursor {
+.blinking-cursor {
     font-weight: 400;
     font-size: 20px;
     color: #2E3D48;
@@ -357,107 +354,107 @@ html, body {
     -ms-animation: 1s blink step-end infinite;
     -o-animation: 1s blink step-end infinite;
     animation: 1s blink step-end infinite;
-  }
-  
-  @keyframes blink {
-    from, to {
-      color: transparent;
-    }
-    50% {
-      color: black;
-    }
-  }
-  
-  @-moz-keyframes blink {
-    from, to {
-      color: transparent;
-    }
-    50% {
-      color: black;
-    }
-  }
-  
-  @-webkit-keyframes blink {
-    from, to {
-      color: transparent;
-    }
-    50% {
-      color: black;
-    }
-  }
-  
-  @-ms-keyframes blink {
-    from, to {
-      color: transparent;
-    }
-    50% {
-      color: black;
-    }
-  }
-  
-  @-o-keyframes blink {
-    from, to {
-      color: transparent;
-    }
-    50% {
-      color: black;
-    }
-  }
+}
 
-  .menu{
+@keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: black;
+    }
+}
+
+@-moz-keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: black;
+    }
+}
+
+@-webkit-keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: black;
+    }
+}
+
+@-ms-keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: black;
+    }
+}
+
+@-o-keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: black;
+    }
+}
+
+.menu{
     display: none;
     cursor: pointer;
-  }
+}
 
-  .close{
+.close{
     color: white;
     font-size: 40px;
     margin: 40px auto;
     text-align: center;
     cursor: pointer;
     display: none;
-  }
-  @media screen and (max-width: 850px){
+}
+@media screen and (max-width: 850px){
 
-      .app{
+    .app{
         grid-template-columns: 100%;
-      }
-      .header div{
+    }
+    .header div{
         display: flex;
         gap: 20px;
-      }
+    }
 
-      .menu{
+    .menu{
         display: inline-block;
-      }
-    
-      .close{
+    }
+
+    .close{
         display: inline;
         position: absolute;
         top: -20px;
         right: 20px;
-      }
+    }
 
-      .add-chat{
+    .add-chat{
         width: 40%;
-      }
-  }
-  @media screen and (min-width: 850px){
+    }
+}
+@media screen and (min-width: 850px){
 
     .sbar{
-      display: block;
+        display: block;
     }
-  
+
 }
 
 .mic{
-  width: 50px;
-  background-color: #333333;
-  color: white;
-  display: grid;
-  place-content: center;
-  height: 45px;
-  margin-left: 10px;
+    width: 50px;
+    background-color: #333333;
+    color: white;
+    display: grid;
+    place-content: center;
+    height: 45px;
+    margin-left: 10px;
 }
 
 .logout{

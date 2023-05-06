@@ -6,120 +6,120 @@ import info from '../../components/data'
 import { useAuth } from "../../contexts/AuthContext";
 import { getFirestore, collection, doc,getDoc,addDoc,setDoc } from "firebase/firestore";
 import {useRouter} from "next/router";
-import app from '../../components/firebase'
+import app from '../../lib/firebase'
 
-function App() {
-    setPerson(person)
+console.log(99)
+export default function App() {
+
+  
+  const {user, loading} = useAuth()
+  const router = useRouter()
+
+  const [data, setData] = useState([])
+  const [person, setPerson] = useState("")
+  const [email, setEmail] = useState(user?.email || ' ')
+
+  function handlePerson(person) {
+      setPerson(person)
   }
-  const {user,loading} = useAuth()
-const router = useRouter()
 
-  const [data,setData] = useState([])
-  const [person,setPerson] = useState("")
-  const [email,setEmail] = useState(user?.email || ' ')
-  function handlePerson(person){
-  
+    const db = getFirestore(app);
+    const [conv, setConv] = useState({})
 
-  
-  const db = getFirestore(app);
-  const [conv,setConv] = useState({})
 
-     
-     useEffect(() => {
-        async function read(){
-          const docRef = doc(db,'users',email)
-          const snap = await getDoc(docRef)
+    useEffect(() => {
+      async function read() {
+        const docRef = doc(db, 'users', email)
+        const snap = await getDoc(docRef)
 
-          if(snap.exists()){
-            setData(snap.data().data)
-          }
-          else{
-            setData(info)
-          }
+        if (snap.exists()) {
+          setData(snap.data().data)
+        } else {
+          setData(info)
         }
+      }
 
-        read()
-     },[])
+      read()
+    }, [])
 
 
-
-    async function fbase(obj){
-      await setDoc(doc(db, "users",email), {
-        data:obj
+    async function fbase(obj) {
+      await setDoc(doc(db, "users", email), {
+        data: obj
       });
     }
 
 
-function handleConv(conv){
+    function handleConv(conv) {
 
- 
-  setData(prev => {
- 
-    let i =  prev.map(item => {
-  
-      if (item.name === person) {
-        item.conv.push(conv);
-      }
-   
-      return item
-      
-    });
 
-   
-    
-    fbase(i)
-    return i
+      setData(prev => {
 
-  });
-  }
-  function updateConv(conv){
-    setData(conv)
-  }
+        let i = prev.map(item => {
 
-  useEffect(() => {
-    console.log(data);
-  },[data])
+          if (item.name === person) {
+            item.conv.push(conv);
+          }
 
-  function error(person)
-  {
-        let bool = true
-        setData(prev => {
-          const arr = prev.map(item => {
-            if(item.name === person){
-              if(bool === true){
-                console.log(4432);
-                item.conv.length-=1
-                bool = false
-              }
-                
+          return item
+
+        });
+
+
+        fbase(i)
+        return i
+
+      });
+    }
+
+    function updateConv(conv) {
+      setData(conv)
+    }
+
+    useEffect(() => {
+      console.log(data);
+    }, [data])
+
+    function error(person) {
+      let bool = true
+      setData(prev => {
+        const arr = prev.map(item => {
+          if (item.name === person) {
+            if (bool === true) {
+              console.log(4432);
+              item.conv.length -= 1
+              bool = false
             }
-            return item
-          })
 
-          return arr
+          }
+          return item
         })
+
+        return arr
+      })
+    }
+
+    return (
+        <>
+          <Head>
+
+
+            <title>Historichat</title>
+            <link rel="icon" type="image/x-icon" href="/history.jpeg"/>
+          </Head>
+          <div className="app">
+
+            <Sidebar handlePerson={handlePerson} db={db} conv={conv} updateConv={updateConv} info={data} fbase={fbase}/>
+            <Chat person={person} db={db} conv={conv} handleConv={handleConv} setconv={setConv} data={data}
+                  error={error}/>
+          </div>
+
+
+        </>
+
+    )
+
   }
 
-  return (
-    <>
-    <Head>
-  
 
-    <title>Historichat</title>
-    <link rel="icon" type="image/x-icon" href="/history.jpeg" />
-    </Head>
-  <div className="app">
 
-    <Sidebar handlePerson={handlePerson} db={db} conv={conv} updateConv={updateConv} info={data} fbase={fbase}/>
-    <Chat person={person} db={db} conv={conv} handleConv={handleConv} setconv={setConv} data={data} error={error}/>
-    </div>
-
-   
-
-    </>
-    
-  )
-  
-}
-
-export default App

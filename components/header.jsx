@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from '../src/styles/Home.module.css'
-
+import {useAuth} from "../contexts/AuthContext";
 
 export default function Header(props){
 
     const [opacity,setOpacity] = useState(props.opacity)
     let [visible,setVisible] = useState(false)
-
+    const {logout} = useAuth()
     useEffect(() => {
         if(window.innerWidth<=850){
             setVisible(true)
@@ -41,11 +41,22 @@ export default function Header(props){
         
         
     return (
-        <div className={`${styles.header}`} style={{opacity: opacity}}>
-            <div>
-               {visible && menu}
-            <h4 className={`${styles.name}`}>{props.person}</h4>
+        <div>
+            <div className={`${styles.header}`} style={{opacity: opacity}}>
+                <div>
+                    {visible && menu}
+                    <h4 className={`${styles.name}`}>{props.person}</h4>
+                </div>
+                <button className={`btn ${styles.logout}`} onClick={logout}>
+                    <span className="material-symbols-outlined">
+                        logout
+                    </span>
+                </button>
+
             </div>
+
+
         </div>
+
     )
 }

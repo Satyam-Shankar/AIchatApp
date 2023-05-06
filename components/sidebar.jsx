@@ -10,6 +10,7 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
   const [input, setInput] = useState("");
   const [visible, setVisible] = useState(false);
   const {logout} = useAuth()
+    const sref = useRef()
 
     useEffect(() => {
     for (let item of data) {
@@ -45,7 +46,7 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [window.innerWidth]);
 
   function Modal() {
     const ref = useRef(null);
@@ -147,7 +148,7 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
     handlePerson(name);
 
     if (window.innerWidth <= 850) {
-      document.querySelector(".sbar").classList.add("hide");
+      sref.current.classList.add("hide");
     }
   }
 
@@ -179,8 +180,7 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
     });
 
     if(window.innerWidth<=850){
-        document.querySelector('.sbar').classList.add('hide')
-
+        sref.current.classList.add('hide')
     }
 }
 
@@ -192,7 +192,7 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
     ))
 
     return (
-        <div className={`sbar`}>
+        <div className={styles.sbar} ref={sref}>
             <ul className={`${styles.nameL}`}>
                 <button className={`${styles.btn} ${styles.add_chat}`} onClick={(e) => {
                     e.preventDefault()
@@ -206,15 +206,13 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
 
 
                  { visible &&  <span className={`material-symbols-outlined ${styles.close}`} onClick={() => {
-                    document.querySelector('.sbar').classList.add('hide')
+                   sref.current.classList.add('hide')
 
                 }}>
                         close
                 </span>}
 
-                <button className={`btn ${styles.logout}`} onClick={logout}>
-                    Logout
-                </button>
+
                 {show &&  <Modal />}
             </ul>
         </div>

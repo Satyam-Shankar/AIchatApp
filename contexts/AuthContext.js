@@ -1,17 +1,18 @@
-import { createContext,useContext, useEffect, useState } from "react";
-import { auth } from "../components/firebase";
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged } from "firebase/auth";
+import app from '../lib/firebase';
+import { auth } from '../lib/firebase';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signOut ,sendPasswordResetEmail} from 'firebase/auth';
+import { signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup } from 'firebase/auth';
 
 
-const AuthContext = createContext({})
+const userContext = createContext({})
+
 
 export function useAuth(){
-    return useContext(AuthContext)
+    return useContext(userContext)
 }
 
-
-
-export function AuthProvider({children}){
+function AuthContext({children}){
     const [user,setUser] = useState()
     const [loading,setLoading] = useState(true)
 
@@ -29,7 +30,7 @@ export function AuthProvider({children}){
         return createUserWithEmailAndPassword(auth,email,password)
 
     }
-
+    
     function login(email,password){
         return signInWithEmailAndPassword(auth,email,password)
     }
@@ -42,17 +43,33 @@ export function AuthProvider({children}){
         signOut(auth)
 
     }
+
+    function google(){
+        const provider = new GoogleAuthProvider()
+        return signInWithPopup(
+            auth, provider
+        ).then(
+            result => {
+                const credential = GoogleAuthProvider.credentialFromResult(result)
+                const token = credential.accessToken
+
+
+            }
+        )
+    }
     const value = {
         user,
         signup,
         login,
-        signout: logout,
-        resetPassword
+        logout: logout,
+        resetPassword,
+        google
     }
     return (
-        <AuthContext.Provider value={value}>
+        <userContext.Provider value={value}>
             {!loading && children}
-        </AuthContext.Provider>
+        </userContext.Provider>
     )
 }
 
+export default AuthContext

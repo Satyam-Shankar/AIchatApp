@@ -1,0 +1,89 @@
+.login{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url("bg1.png");
+}
+
+.container{
+    background: #fff;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 1fr;
+
+    max-width: max(1100px,70%);
+    /*bo rder: 5px solid red;*/
+    /*border-image: linear-gradient(90deg,red,darkblue) 30 stretch;*/
+    padding: 10px;
+    /*border-image: linear-gradient(90deg,red,blue);*/
+    position: relative;
+
+}
+.head{
+    font-weight: 700;
+    margin: 20px 0;
+
+}
+
+
+.lform{
+    background: white;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #fff;
+    margin: auto;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.group{
+    margin: 10px;
+}
+
+.label{
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.input{
+    font-family: 'Nunito Sans';
+    width: 300px;
+    height: 40px;
+    background-color: #e8f0fe;
+    box-shadow: 1px 1px 2px #aaa;
+    padding: 10px;
+}
+
+.input:active,.input:focus{
+    background-color: rgba(227, 227, 233, 0.64);
+
+}
+
+.submit{
+    margin: 20px;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    /*background: #5900ff;*/
+    background: #0d62ff;
+
+    color: white;
+    transition: all 0.5s ease-in-out;
+}
+
+.submit:hover,.others:hover{
+    background: #5d19c9;
+}
+
+.others{
+    width: 200px;
+    height: 40px;
+    border: 1px solid #aaa;
+    background: #0d62ff;
+    color: white;
+    transition: all 0.5s ease-in-out;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-
+import styles from '../src/styles/Home.module.css'
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc,getDoc,addDoc,setDoc } from "firebase/firestore";
 
@@ -53,7 +53,7 @@ export default function Conversation(props){
 
     const obj = conv.map((item, index) => {
         return (
-            <p key={index} className={index % 2 === 0 ? "question talk" : "response talk"}>
+            <p key={index} className={index % 2 === 0 ? `question talk ${styles.question}` : `response talk ${styles.response}`}>
                 {item}
             </p>
         );

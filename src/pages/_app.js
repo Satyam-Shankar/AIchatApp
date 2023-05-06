@@ -1,28 +1,26 @@
-import '../styles/app.css';
-import { AuthProvider } from '../../contexts/AuthContext';
-import PrivateRoute from "../../components/privateRoute";
+import '@/styles/app.css'
+import AuthContext from '../../contexts/AuthContext'
 import {useRouter} from "next/router";
+import ProtectedRoute from "../../components/protectedRoute";
 
 const noAuthRequired = [
     '/login',
     '/signup'
 ]
-
 export default function App({ Component, pageProps }) {
-
   const router = useRouter()
-
   return (
-    <AuthProvider>
-      {
-        noAuthRequired.includes(router.pathname)?
+
+  <AuthContext>
+    {
+      noAuthRequired.includes(router.pathname)?
+          <Component {...pageProps} />:
+          <ProtectedRoute>
             <Component {...pageProps} />
-            :
-            <PrivateRoute>
-              <Component {...pageProps} />
-            </PrivateRoute>
-      }
-    </AuthProvider>
+          </ProtectedRoute>
+    }
+
+    
+  </AuthContext>
   )
-  ;
 }
