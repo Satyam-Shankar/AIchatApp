@@ -39,11 +39,12 @@ export default function Login() {
       <div className={styles.login}>
 
         <div className={styles.container}>
-            <Image src={image} alt="" width={400} height={500} className={styles.limage} priority/>
+            {/*<Image src={image} alt="" width={400} height={500} className={styles.limage}/>*/}
 
           {error && <Alert variant="danger">{error}</Alert>}
           <form onSubmit={handleSubmit} className={styles.lform}>
-              <h2 className={styles.head}>Sign Up</h2>
+              <h2 className={styles.head}>Log In / Sign Up</h2>
+
             <div className={styles.group}>
               <label className={styles.label}>Email</label>
               <input type="email" ref={emailRef} required className={styles.input}/>
