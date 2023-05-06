@@ -39,7 +39,7 @@ export default function Login() {
       <div className={styles.login}>
 
         <div className={styles.container}>
-            <Image src={image} alt="" width={400} height={500} className={styles.limage}/>
+            <Image src={image} alt="" width={400} height={500} className={styles.limage} priority/>
 
           {error && <Alert variant="danger">{error}</Alert>}
           <form onSubmit={handleSubmit} className={styles.lform}>
