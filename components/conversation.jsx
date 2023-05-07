@@ -36,12 +36,16 @@ export default function Conversation(props){
             
             if(lastResponse && lastResponse.classList.contains('blinking-cursor')){
                 setIsTyping(false)
+                document.querySelector('.ques_input').disabled = false
             }
             else if (lastResponse && lastResponse.classList.contains('question')) {
                 setIsTyping(true);
+                document.querySelector('.ques_input').disabled = true
+
               
             } else {
                 setIsTyping(false);
+                document.querySelector('.ques_input').disabled = true
 
 
             }

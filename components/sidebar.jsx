@@ -3,7 +3,7 @@ import { getFirestore, collection, doc,getDoc,addDoc,setDoc, updateDoc } from "f
 import styles from '../src/styles/Home.module.css'
 import {useAuth} from "../contexts/AuthContext";
 
-export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbase }) {
+export default function Sidebar({ person,handlePerson, db, conv, updateConv, info, fbase }) {
   const [data, setData] = useState(info);
   const [current, setCurrent] = useState();
   const [show, setShow] = useState(false);
@@ -135,6 +135,7 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
 
   function handleClick(e) {
     const name = e.target.innerText;
+      document.querySelector('.ques_input').disabled = false
 
     setData((prev) => {
       const arr = prev.map((item) => {
@@ -156,6 +157,8 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
       sref.current.classList.add("hide");
     }
   }
+
+
 
     useEffect(() => {
       console.log(data.length);
