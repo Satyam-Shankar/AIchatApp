@@ -24,7 +24,7 @@ export default (
 
         },
         {
-            name: "Subhash Chandra Bose",
+            name: "Mahatma Gandhi",
             selected: false,
             conv: [
                

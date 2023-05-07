@@ -79,35 +79,40 @@ export default function Sidebar({ handlePerson, db, conv, updateConv, info, fbas
             />
             <div className={`${styles.button_wrapper}`}>
               <button
-                onClick={(e) => {
-                  e.preventDefault();
-         
-
-
-                  if (input.trim() !== "") {
-                    setData((prev) => {
-                      const arr = prev.map((item) => {
-                        if (item.name === current) {
-                          item.selected = false;
-                        }
-                        return item;
-                      }); 
-
-                      arr.push({
-                        name: input,
-                        selected: true,
-                        conv: [],
-                      });
-                      fbase(arr);
-                      updateConv(arr)
-                      handlePerson(input);
-                      setCurrent(input);
-                      setShow(false);
-
-                      return arr;
-                    });
-                  }
-                }}
+                  onClick={(e) => {
+                      e.preventDefault();
+                      if (input.trim() !== "") {
+                          setData((prev) => {
+                              const nameExists = prev.some((item) => item.name === input);
+                              if (nameExists) {
+                                  // If the input name already exists, mark it as selected and update the current person
+                                  return prev.map((item) => {
+                                      if (item.name === input) {
+                                          item.selected = true;
+                                      } else {
+                                          item.selected = false;
+                                      }
+                                      return item;
+                                  });
+                              } else {
+                                  // If the input name is new, add it to the array and mark it as selected
+                                  const arr = prev.map((item) => {
+                                      item.selected = false;
+                                      return item;
+                                  });
+                                  arr.push({
+                                      name: input,
+                                      selected: true,
+                                      conv: [],
+                                  });
+                                  return arr;
+                              }
+                          });
+                          handlePerson(input);
+                          setCurrent(input);
+                          setShow(false);
+                      }
+                  }}
                 className={`${styles.name_submit}`}
               >
                 Submit
