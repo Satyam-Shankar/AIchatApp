@@ -92,12 +92,12 @@ export default function Input(props) {
   },[person])
 
   return (
-    <div className="input-div">
+    <div className={"input-div "+styles.input_div}>
       <form>
         <textarea
           onChange={(e) => setQues(e.target.value)}
           ref={ref}
-          className={`ques_input`}
+          className={`ques_input ${styles.ques_input}`}
           placeholder="Send message....."
           disabled={isSubmitting}
           onKeyDown={(e) => {

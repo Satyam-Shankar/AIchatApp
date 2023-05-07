@@ -10,14 +10,14 @@ export default function Login() {
     const {user,signup,login,google} = useAuth()
     const emailRef = useRef()
     const passwordRef = useRef()
-    const [error,setError] = useState()
+    const [error,setError] = useState('')
     async function handleSubmit(e){
         e.preventDefault()
         console.log(user)
         try{
         console.log(12);
 
-        await login(emailRef.current.value,passwordRef.current.value)
+        await signup(emailRef.current.value,passwordRef.current.value)
         router.push('/')
         console.log(12);
 
@@ -29,20 +29,57 @@ export default function Login() {
             await signup(emailRef.current.value,passwordRef.current.value)
             setError('')
             }
-            catch{
-                setError('Not able to log in')
+            catch(e){
+
+                console.log(String.toString)
+                const errorMessage = e.toString().match(/Error: (.*) \(/)[2];
+
+               // Output: "Password should be at least 6 characters"
+                setError(e.toString())
+                console.log(e)
+
             }
         }
     }
+
+    async function handleLogin(e){
+        e.preventDefault()
+        try{
+            console.log(12);
+
+            await login(emailRef.current.value,passwordRef.current.value)
+            router.push('/')
+            console.log(12);
+
+            setError('')
+
+        }
+        catch(e){
+
+
+
+
+                console.log(String.toString)
+                const errorMessage = e.toString().match(/Error: (.*) \(/)[2];
+
+                // Output: "Password should be at least 6 characters"
+                setError(e.toString())
+                console.log(e)
+
+
+        }
+    }
+
+    console.log(error)
   return (
     <>
       <div className={styles.login}>
+          {error!=='' && <Alert variant="danger">{error}</Alert>}
 
         <div className={styles.container}>
             {/*<Image src={image} alt="" width={400} height={500} className={styles.limage}/>*/}
 
-          {error && <Alert variant="danger">{error}</Alert>}
-          <form onSubmit={handleSubmit} className={styles.lform}>
+          <form className={styles.lform}>
               <h2 className={styles.head}>Log In / Sign Up</h2>
 
             <div className={styles.group}>
@@ -54,9 +91,14 @@ export default function Login() {
               <input type="password" ref={passwordRef} required className={styles.input}/>
             </div>
             
-            <button type="submit" className={styles.submit}>
-              Sign Up
-            </button>
+           <div className={styles.btns}>
+               <button type="submit" className={styles.submit} onClick={handleSubmit}>
+                   Sign Up
+               </button>
+               <button type="submit" className={styles.submit} onClick={handleLogin}>
+                   Log In
+               </button>
+           </div>
 
               <h4>
                   Use other Sign In options
