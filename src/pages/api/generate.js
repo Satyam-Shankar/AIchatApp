@@ -17,7 +17,7 @@ export default async function (req, res) {
     }],
   });
   console.log(completion.data.choices[0].message.content);
-  let data = await completion.data.json()
+  let data = await completion.data
   res.json(
     {
       data: data
