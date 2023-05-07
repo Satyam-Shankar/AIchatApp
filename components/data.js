@@ -1,14 +1,14 @@
 export default (
     [
         {
-            name: "Mahatma Gandhi",
-            selected: true,
+            name: "Elon Musk",
+            selected: false,
             conv: [
                 
             ]
         },
         {
-            name: "Muhammad Ali Jinnah",
+            name: "Albert Einstein",
             selected: false,
             conv: [
                
@@ -24,12 +24,20 @@ export default (
 
         },
         {
-            name: "Sardar Patel",
+            name: "Subhash Chandra Bose",
+            selected: false,
+            conv: [
+               
+            ]
+
+        },{
+            name: "Carryminati",
             selected: false,
             conv: [
                
             ]
 
         }
+
     ]
 )
