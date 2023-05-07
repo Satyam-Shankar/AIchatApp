@@ -104,7 +104,7 @@ export default function App() {
           <Head>
 
 
-            <title>Historichat</title>
+            <title>IdolChat</title>
             <link rel="icon" type="image/x-icon" href="/history.jpeg"/>
           </Head>
           <div className="app">
