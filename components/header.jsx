@@ -49,7 +49,7 @@ export default function Header(props){
                     <h2 className={`${styles.name}`}>{props.person}</h2>
                 </div>
 
-                <h6>By Satyam Shankar</h6>
+                <h6><a href="https://www.linkedin.com/in/satyamshankar/" target="_blank">By Satyam Shankar</a></h6>
                 <button className={`btn ${styles.logout}`} onClick={logout}>
                     <span className="material-symbols-outlined">
                         logout
