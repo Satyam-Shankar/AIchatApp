@@ -164,6 +164,8 @@ export default function Sidebar({ person,handlePerson, db, conv, updateConv, inf
 
     if (window.innerWidth <= 850) {
       sref.current.classList.add("hide");
+        document.querySelector('.out').classList.remove("hide");
+
     }
   }
 
