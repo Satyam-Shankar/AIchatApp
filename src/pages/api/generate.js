@@ -8,7 +8,7 @@ const openai = new OpenAIApi(configuration);
 export default async function (req, res) {
   let person = req.body.person
   let ques = req.body.question
-   const completion = await openai.createChatCompletion({
+  const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
       {role: 'system', content:`You are ${person}`},
@@ -17,7 +17,7 @@ export default async function (req, res) {
     }],
   });
   console.log(completion.data.choices[0].message.content);
-  let data = await completion.data
+  let data = await completion.data.json()
   res.json(
     {
       data: data
