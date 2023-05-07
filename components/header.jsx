@@ -42,11 +42,14 @@ export default function Header(props){
         
     return (
         <div>
+
             <div className={`${styles.header}`} style={{opacity: opacity}}>
                 <div>
                     {visible && menu}
-                    <h4 className={`${styles.name}`}>{props.person}</h4>
+                    <h2 className={`${styles.name}`}>{props.person}</h2>
                 </div>
+
+                <h6>By Satyam Shankar</h6>
                 <button className={`btn ${styles.logout}`} onClick={logout}>
                     <span className="material-symbols-outlined">
                         logout
