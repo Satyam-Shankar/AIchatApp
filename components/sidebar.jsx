@@ -97,14 +97,23 @@ export default function Sidebar({ person,handlePerson, db, conv, updateConv, inf
                               } else {
                                   // If the input name is new, add it to the array and mark it as selected
                                   const arr = prev.map((item) => {
-                                      item.selected = false;
+                                      if (item.name === current) {
+                                          item.selected = false;
+                                      }
                                       return item;
                                   });
+
                                   arr.push({
                                       name: input,
                                       selected: true,
                                       conv: [],
                                   });
+                                  fbase(arr);
+                                  updateConv(arr)
+                                  handlePerson(input);
+                                  setCurrent(input);
+                                  setShow(false);
+
                                   return arr;
                               }
                           });
@@ -215,6 +224,8 @@ export default function Sidebar({ person,handlePerson, db, conv, updateConv, inf
 
                  { visible &&  <span className={`material-symbols-outlined ${styles.close}`} onClick={() => {
                    sref.current.classList.add('hide')
+                     document.querySelector('.out').classList.remove('hide')
+
 
                 }}>
                         close

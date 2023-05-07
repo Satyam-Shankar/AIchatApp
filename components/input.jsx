@@ -99,7 +99,7 @@ export default function Input(props) {
           ref={ref}
           className={`ques_input ${styles.ques_input}`}
           placeholder="Send message....."
-          disabled={isSubmitting}
+          disabled
           onKeyDown={(e) => {
   
             if(e.code == 'Enter'){
