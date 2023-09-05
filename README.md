@@ -31,3 +31,16 @@ Follow these steps to set up and run the AI Chat Application:
 2. Change into the project directory:
 
    ``` cd AIchatApp ```
+3. Install the project dependencies:
+   
+   ``` npm install ```
+   
+4. Create a .env.local file in the root of the project and set the necessary environment variables:
+
+   ``` OPENAI_API_KEY=your_api_key_here ```
+Replace your_api_key_here with your actual API key for the AI chat service.
+
+5. Start the application:
+
+   ``` npm run dev ```
+
