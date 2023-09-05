@@ -28,4 +28,6 @@ Follow these steps to set up and run the AI Chat Application:
 
    ``` git clone https://github.com/your-username/ai-chat-app.git ```
 
-2. 
+2. Change into the project directory:
+
+   ``` cd ai-chat-app ```
