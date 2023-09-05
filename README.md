@@ -2,8 +2,8 @@
 
 Welcome to the AI Chat Application! This application allows you to have conversations with famous personalities and receive responses as if you were chatting with them. It leverages the power of AI and is built using Next.js. This comprehensive readme will guide you through setting up and using the application.
 
-[LinkedIn](https://www.linkedin.com/in/satyamshankar
-[Youtube](https://www.youtube.com/channel/UCUgFrqn0CxyzDovOKI6KxdA)
+[LinkedIn](https://www.linkedin.com/in/satyamshankar/)
+[Youtube](https://www.youtube.com/channel/UCUgFrqn0CxyzDovOKI6KxdA/)
 
 ## Table of Contents
 - [Getting Started](#getting-started)
