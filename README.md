@@ -6,7 +6,6 @@ Welcome to the AI Chat Application! This application allows you to have conversa
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Usage](#usage)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Contributing](#contributing)
@@ -44,3 +43,8 @@ Replace your_api_key_here with your actual API key for the AI chat service.
 
    ``` npm run dev ```
 
+### Features
+- Chat with famous personalities.
+- Receive responses as if you were conversing with the real person.
+- Easily switch between different personalities.
+- User-friendly chat interface with conversation history.
