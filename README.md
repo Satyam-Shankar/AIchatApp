@@ -30,4 +30,4 @@ Follow these steps to set up and run the AI Chat Application:
 
 2. Change into the project directory:
 
-   ``` cd ai-chat-app ```
+   ``` cd AIchatApp ```
